@@ -40,6 +40,7 @@ if __name__ == "__main__":
                 profile.click()
                 print('logging out')
             except Exception as e:
+                print('error logging out')
                 print(e)
 
         time.sleep(100)
