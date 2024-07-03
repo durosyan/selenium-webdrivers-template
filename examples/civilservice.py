@@ -20,14 +20,7 @@ def extract_pages(pages, paging_element):
 	'''
 	extract pages (pagination is truncated)
 	'''
-	for a in paging_element.find_elements(By.TAG_NAME, "a"):
-		page = a.get_attribute("innerText")
-		link = a.get_attribute("href")
-		match = re.search(r"\d+", page)
-		if match:
-			number = int(match.group())
-			if page not in pages:
-				pages[page] = {"page": number, "link": link}
+
 
 name = input("Enter your job search location: ")
 
@@ -43,11 +36,20 @@ try:
 	else:
 	    print("Unable to extract a valid number.")
 
-	paging_element = driver.find_element(By.CSS_SELECTOR, ".search-results-paging-menu")
 	pages = {}
-	extract_pages(pages, paging_element)
 
 	job_list = driver.find_elements(By.XPATH, "//ul[@title='Job list']")
+
+	for a in driver.find_element(By.CSS_SELECTOR, ".search-results-paging-menu").find_elements(By.TAG_NAME, "a"):
+		page = a.get_attribute("innerText")
+		link = a.get_attribute("href")
+		match = re.search(r"\d+", page)
+		if match:
+			number = int(match.group())
+			if page not in pages:
+				pages[page] = {"page": number, "link": link}
+
+
 
 except Exception as e:
 	print(e)
