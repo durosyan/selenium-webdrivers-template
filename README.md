@@ -1,10 +1,5 @@
 # Selenium webdriver template
 
-Just some code to get me started with webdriver
+Just me messing about with selenium, it's good fun when it works.
 
-setup a venv:
-
-`python3 -m venv .`
-
-download the drivers for your given browser using get_drivers.sh and move them into the `bin` folder created by venv.
-
+Run browser.sh to get webdriver binaries, then place them in your $PATH or point the web driver code to the filepath of said driver (edge/chrome/firefox/etc..)
