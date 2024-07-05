@@ -5,7 +5,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 import time
 import re
 
-driver = webdriver.Edge()
+# Just don't bother with local weddriver rn, use `docker compose up -d`"
+options = webdriver.ChromeOptions()
+options.add_argument('--ignore-ssl-errors=yes')
+options.add_argument('--ignore-certificate-errors')
+driver = webdriver.Remote(
+	command_executor='http://localhost:4444/wd/hub',
+	options=options
+)
+
 driver.get('https://www.civilservicejobs.service.gov.uk/csr/index.cgi')
 
 def extract_number_from_text(text):
@@ -48,13 +56,8 @@ try:
 				pages[page] = {"page": number, "link": link}
 
 	job_list = driver.find_elements(By.XPATH, "//ul[@title='Job list']")
-
-
 except Exception as e:
 	print(e)
 
-
-
 time.sleep(10)
-
 driver.quit()
