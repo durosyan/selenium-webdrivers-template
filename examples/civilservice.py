@@ -18,7 +18,7 @@ driver.get('https://www.civilservicejobs.service.gov.uk/csr/index.cgi')
 
 try:
 	# get total jobs by location
-	location = "Bristol"
+	location = ""
 	where = driver.find_element(By.ID, "whereselector")
 	where.send_keys(location)
 	driver.find_element(By.ID, "submitSearch").click()
@@ -41,12 +41,15 @@ try:
 			if page not in pages:
 				pages[page] = {"page": number, "link": link}
 
-	# extract job listings
+	# extract job listings for page 1
 	for job in driver.find_elements(By.CSS_SELECTOR, ".search-results-job-box"):
-		title = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-title")
-		salary = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-salary")
-		print(f"title: {title.get_attribute('innerText')}")
-		print(f"salary range: {salary.get_attribute('innerText')}")
+		title = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-title").get_attribute('innerText')
+		salary = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-salary").get_attribute('innerText')
+		closing = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-closingdate").get_attribute('innerText')
+		location = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-location").get_attribute('innerText')
+		department = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-department").get_attribute('innerText')
+		reference = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-refcode").get_attribute('innerText')
+		print(f"{title} : {salary} : {department}")
 
 except Exception as e:
 	print(e)
