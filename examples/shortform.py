@@ -12,10 +12,7 @@ if __name__ == "__main__":
         command_executor='http://localhost:4444/wd/hub',
         options=options
     )
-
-    # Set the remote webdriver URL
-    webdriver_url = "http://localhost:4444/wd/hub"
-
+    
     try:
         # Navigate to the Shortform website
         print("Navigating to Shortform website")
