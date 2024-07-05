@@ -1,3 +1,6 @@
+# This code is an example only of how to scrape some data from a page using selenium,
+# since a lot of this particular site is SSR it probably could be done using only beautiful soup.
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
