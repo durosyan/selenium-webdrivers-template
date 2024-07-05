@@ -38,8 +38,6 @@ try:
 
 	pages = {}
 
-	job_list = driver.find_elements(By.XPATH, "//ul[@title='Job list']")
-
 	for a in driver.find_element(By.CSS_SELECTOR, ".search-results-paging-menu").find_elements(By.TAG_NAME, "a"):
 		page = a.get_attribute("innerText")
 		link = a.get_attribute("href")
@@ -49,6 +47,7 @@ try:
 			if page not in pages:
 				pages[page] = {"page": number, "link": link}
 
+	job_list = driver.find_elements(By.XPATH, "//ul[@title='Job list']")
 
 
 except Exception as e:
