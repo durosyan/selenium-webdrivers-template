@@ -41,12 +41,12 @@ try:
 			if page not in pages:
 				pages[page] = {"page": number, "link": link}
 
-	# job_list = driver.find_element(By.XPATH, "//ul[@title='Job list']")
+	# extract job listings
 	for job in driver.find_elements(By.CSS_SELECTOR, ".search-results-job-box"):
 		title = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-title")
 		salary = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-salary")
 		print(f"title: {title.get_attribute('innerText')}")
-		print(f"salary: {salary.get_attribute('innerText')}")
+		print(f"salary range: {salary.get_attribute('innerText')}")
 
 except Exception as e:
 	print(e)
