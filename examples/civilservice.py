@@ -16,36 +16,22 @@ driver = webdriver.Remote(
 
 driver.get('https://www.civilservicejobs.service.gov.uk/csr/index.cgi')
 
-def extract_number_from_text(text):
-    cleaned_text = re.sub(r'[^0-9]', '', text)
-    try:
-        number = int(cleaned_text)
-        return number
-    except ValueError:
-        return None
-
-def extract_pages(pages, paging_element):
-	'''
-	extract pages (pagination is truncated)
-	'''
-
-
-name = input("Enter your job search location: ")
-
 try:
+	# get total jobs by location
+	location = "Bristol"
 	where = driver.find_element(By.ID, "whereselector")
-	where.send_keys(name)
+	where.send_keys(location)
 	driver.find_element(By.ID, "submitSearch").click()
 	searchResults = driver.find_element(By.ID, "id_common_page_title_h1").get_attribute("innerText")
-	extracted_number = extract_number_from_text(searchResults)
+	cleaned_text = re.sub(r'[^0-9]', '', searchResults)
+	try:
+		number = int(cleaned_text)
+		print(f"Total Jobs reported found: {number}")
+	except ValueError:
+		print("Unable to extract a valid number.")
 
-	if extracted_number is not None:
-	    print(f"Total Jobs reported found: {extracted_number}")
-	else:
-	    print("Unable to extract a valid number.")
-
+	# extract pages (don't include the "next page" link)
 	pages = {}
-
 	for a in driver.find_element(By.CSS_SELECTOR, ".search-results-paging-menu").find_elements(By.TAG_NAME, "a"):
 		page = a.get_attribute("innerText")
 		link = a.get_attribute("href")
@@ -55,7 +41,13 @@ try:
 			if page not in pages:
 				pages[page] = {"page": number, "link": link}
 
-	job_list = driver.find_elements(By.XPATH, "//ul[@title='Job list']")
+	# job_list = driver.find_element(By.XPATH, "//ul[@title='Job list']")
+	for job in driver.find_elements(By.CSS_SELECTOR, ".search-results-job-box"):
+		title = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-title")
+		salary = job.find_element(By.CSS_SELECTOR, ".search-results-job-box-salary")
+		print(f"title: {title.get_attribute('innerText')}")
+		print(f"salary: {salary.get_attribute('innerText')}")
+
 except Exception as e:
 	print(e)
 
