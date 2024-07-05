@@ -9,7 +9,7 @@ import re
 # edge_options.add_argument('--headless')  # Enable headless mode
 # edge_options.add_argument('--disable-gpu')  # Disable GPU acceleration
 
-driver = webdriver.Edge("./browsers/msedgedriver")
+driver = webdriver.Edge()
 
 driver.get('https://bing.com')
 

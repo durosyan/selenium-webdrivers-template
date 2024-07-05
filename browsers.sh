@@ -21,15 +21,10 @@ unzip -qq chromedriver-linux64.zip
 mv chromedriver-linux64/chromedriver . 
 rm -rf chromedriver-linux64 Driver_Notes/ chromedriver-linux64.zip edgedriver_linux64.zip
 
-if [ -f "./chromedriver" ]; then
-    echo "chromedriver exists."
+if [ -f "./chromedriver" ] && [ -f "msedgedriver" ]; then
+    echo "Drivers exist."
+    echo "Run: 'export PATH=\$PATH:\$PWD/browsers'"
 else
-    echo "chromedriver does not exist."
-fi
-
-if [ -f "msedgedriver" ]; then
-    echo "msedgedriver exists."
-else
-    echo "msedgedriver does not exist."
+    echo "Failed to unpack drivers."
 fi
 
