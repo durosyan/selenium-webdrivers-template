@@ -1,7 +1,6 @@
 import time
 from selenium import webdriver
-from pathlib import Path
-
+from selenium.webdriver.common.by import By
 
 if __name__ == "__main__":
     options = webdriver.ChromeOptions()
@@ -14,9 +13,14 @@ if __name__ == "__main__":
 
     driver.get('https://www.google.com/');
     time.sleep(5) # Let the user actually see something!
-    search_box = driver.find_element_by_name('q')
-    search_box.send_keys('ChromeDriver')
-    search_box.submit()
+
+    try:
+        # element not interactable...
+        search_box = driver.find_element(By.XPATH, "//textarea[@name='q']")
+        search_box.send_keys('ChromeDriver')
+        search_box.submit()
+    except Exception as e:
+        print(e)
 
     time.sleep(5) # Let the user actually see something!
     driver.quit()
