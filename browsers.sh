@@ -1,5 +1,5 @@
 # just some links to get the webdriver executable files to add into the $PATH
-#
+# DONT NEED THIS IN 2024!!!
 
 mkdir -p ./browsers
 cd ./browsers
