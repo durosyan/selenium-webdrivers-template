@@ -18,7 +18,17 @@ def tryClick(element, driver):
             return False
 
 if __name__ == "__main__":
-    driver = webdriver.Edge()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--ignore-ssl-errors=yes')
+    options.add_argument('--ignore-certificate-errors')
+    options.set_capability("se:name", "facebook example"); 
+    driver = webdriver.Remote(
+        command_executor='http://localhost:4444/wd/hub',
+        options=options
+    )
+
+    # run this locally on windows
+    # driver = webdriver.Edge()
 
     try:
         driver.get("https://www.facebook.com/")
@@ -26,16 +36,16 @@ if __name__ == "__main__":
             print("waiting for facebook to login")
             try:
                 cookie_dialogue = driver.find_element(By.XPATH, "//div[@data-testid='cookie-policy-manage-dialog']")
-                WebDriverWait(driver, 20).until(EC.invisibility_of_element_located((cookie_dialogue)))
+                WebDriverWait(driver, 10).until(EC.invisibility_of_element_located((cookie_dialogue)))
                 print('cookies closed')
-                WebDriverWait(driver, 100).until(EC.element_to_be_clickable((By.XPATH, "//a[@aria-label='Friends']")))
+                WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//a[@aria-label='Friends']")))
                 print('Logged in')
             except Exception as e:
                 print(e)
                 driver.quit()
 
             try:
-                WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//a[@aria-label='Your profile']")))
+                WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//a[@aria-label='Your profile']")))
                 profile = driver.find_element(By.XPATH, "//a[@aria-label='Your profile']")
                 profile.click()
                 print('logging out')
@@ -43,7 +53,7 @@ if __name__ == "__main__":
                 print('error logging out')
                 print(e)
 
-        time.sleep(100)
+        time.sleep(10)
         driver.save_screenshot('screen.png')
     except Exception as e:
         print(e)
