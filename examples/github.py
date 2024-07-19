@@ -17,9 +17,9 @@ if (__name__ == "__main__"):
 
 	# Process and print the data
 	for key, elements in data.items():
-	    print(f"{key}:")
-	    for element in elements:
-	        print(f" - {element.text}")
+		print(f"{key}:")
+		for element in elements:
+			print(f" - {element.text}")
 
 	time.sleep(2)
 	driver.quit()

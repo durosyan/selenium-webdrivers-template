@@ -33,9 +33,9 @@ try:
 	searchResults = element.get_attribute("innerText")
 	extracted_number = extract_number_from_text(searchResults)
 	if extracted_number is not None:
-	    print(f"Extracted number: {extracted_number}")
+		print(f"Extracted number: {extracted_number}")
 	else:
-	    print("Unable to extract a valid number.")
+		print("Unable to extract a valid number.")
 except Exception as e:
 	print(e)
 
